@@ -248,7 +248,16 @@
         e.preventDefault();
         
         const selectedFile = fileInput.files[0];
+        // Strict verification: Reject the file if it does not end in .pdf
+    if (selectedFile && !selectedFile.name.toLowerCase().endsWith('.pdf')) {
+        alert("Submission Rejected: Only PDF files (.pdf) are allowed for this assignment.");
         
+        // Reset the form upload layout UI so they can select a new file
+        fileInput.value = "";
+        dropzoneText.innerText = "Click or drag file here to upload";
+        fileNamePreview.style.display = "none";
+        return; // This completely stops the file from sending to your Google Drive
+    }
         // Instantly switch to the loading state screen
         formContent.style.display = "none";
         statusOverlay.style.display = "block";
